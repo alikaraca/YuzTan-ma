@@ -14,6 +14,10 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UIImagePic
     
     @IBOutlet weak var myImageView: UIImageView!
     
+    @IBOutlet weak var resim4: UIImageView!
+    @IBOutlet weak var resim3: UIImageView!
+    @IBOutlet weak var resim2: UIImageView!
+    @IBOutlet weak var resim1: UIImageView!
     @IBOutlet weak var myTextView: UITextView!
     @IBAction func yukle(_ sender: Any) {
         let imagePicker=UIImagePickerController()
@@ -37,7 +41,7 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UIImagePic
         let faces=detector?.features(in: myImage! ,options:[CIDetectorSmile:true])
         if !faces!.isEmpty{
             for face in faces as! [CIFaceFeature]{
-                let mouthshowing="\nMouth Showing: \(face.hasMouthPosition)"
+                let mouthshowing="\nAğız Görünüyor: \(face.hasMouthPosition)"
                 let isSmiling="\nKişi Gülümsüyor:\(face.hasSmile)"
                 var bothEyesShowing="\n2 göz görünüyor"
                 if !face.hasRightEyePosition || !face.hasLeftEyePosition{
@@ -51,12 +55,29 @@ class ViewController: UIViewController,UINavigationControllerDelegate,UIImagePic
                 if face.faceAngle>10 || face.faceAngle < -10 {suspectDegree+=1}
                 let suspectText="\(array[suspectDegree])"
                 myTextView.text="\(suspectText)\n\(mouthshowing)\n\(isSmiling)\n\(bothEyesShowing)"
+                
             }
             
         }else{
             myTextView.text="Yüz Bulunamadı"
         }
     }
+    @IBAction func resim1_yukle(_ sender: Any) {
+        myImageView.image=resim1.image
+        detect()
+    }
+    @IBAction func resim2_yukle(_ sender: Any) {
+        myImageView.image=resim2.image
+        detect()
+    }
+    @IBAction func resim3_yukle(_ sender: Any) {
+        myImageView.image=resim3.image
+        detect()
+        
+    }
+    @IBAction func resim4(_ sender: Any) {
+        myImageView.image=resim4.image
+        detect()    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
